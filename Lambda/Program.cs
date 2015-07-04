@@ -26,27 +26,29 @@ namespace Lambda
 
 			//Pessoas jovens
 			Console.WriteLine("Pessoas jovens: ");
-			List<Pessoa> pessoaDeIdadeJovem = Filtrar(pessoas, FiltraPessoasJovens);
+			List<Pessoa> pessoaDeIdadeJovem = (from p in pessoas
+											   where p.Idade >= 18 && p.Idade < 30
+											   select p).ToList();
 			Imprime(pessoaDeIdadeJovem);
 
 			Console.WriteLine("Pessoas Idosas");
-			List<Pessoa> pessoasDeIdadeIdosa = Filtrar(pessoas, FiltrarPessoasIdosas);
+			List<Pessoa> pessoasDeIdadeIdosa = pessoas.Where(p => p.Idade >= 30).ToList();
 			Imprime(pessoasDeIdadeIdosa);
 
 		}
 
-		static List<Pessoa> Filtrar(List<Pessoa> pessoas, Filtro filtro)
-		{
-			List<Pessoa> pessoasFiltrada = new List<Pessoa>();
-			foreach (var pessoa in pessoas)
-			{
-				if (filtro(pessoa))
-				{
-					pessoasFiltrada.Add(pessoa);
-				}
-			}
-			return pessoasFiltrada;
-		}
+		//static List<Pessoa> Filtrar(List<Pessoa> pessoas, Filtro filtro)
+		//{
+		//	List<Pessoa> pessoasFiltrada = new List<Pessoa>();
+		//	foreach (var pessoa in pessoas)
+		//	{
+		//		if (filtro(pessoa))
+		//		{
+		//			pessoasFiltrada.Add(pessoa);
+		//		}
+		//	}
+		//	return pessoasFiltrada;
+		//}
 
 		static bool FiltraPessoasJovens(Pessoa pessoa)
 		{
